@@ -1,0 +1,18 @@
+.text-center {
+    text-align: center;
+}
+
+.btn {
+    padding: 20px 30px;
+    border-radius: 5px;
+    margin: 5px;
+    display: inline-block;
+}
+
+.bg-gray {
+    background-color: #ebebeb;
+}
+
+.bg-green {
+    background-color: #b6f893;
+}

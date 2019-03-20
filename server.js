@@ -1,10 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const cors = require('cors');
 
 const userRoute = require('./routes/user.routes');
 const postRoute = require('./routes/post.routes');
+const tagRoute = require('./routes/tag.routes');
 
 const app = express();
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+
+// Cors Config
+const corsOptions = {
+    origin: 'http://localhost:3000'
+}
+app.use(cors(corsOptions));
 
 // DB Config
 const db = require('./config/keys').mongoURI;
@@ -15,11 +26,17 @@ mongoose
     .then(() => console.log('MongoDB Connected!'))
     .catch(err => console.log(err));
 
-app.get('/', (req, res) => res.send('Hello!'));
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport Config
+require('./config/passport')(passport);
+
 
 // Use Routes
-app.use('/api/post', postRoute);
 app.use('/api/user', userRoute);
+app.use('/api/post', postRoute);
+app.use('/api/tag', tagRoute);
 
 const port = process.env.PORT || 5000;
 
