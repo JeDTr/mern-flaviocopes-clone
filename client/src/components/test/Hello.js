@@ -13,7 +13,7 @@ class Hello extends React.Component {
     render() {
         return (
             <div>
-                <h1>{this.state.hello} + {this.props.name}</h1>
+                <h1>{this.state.hello} + {this.props.name} + {process.env.NODE_ENV}</h1>
             </div>
         )
     }

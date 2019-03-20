@@ -14,11 +14,9 @@ export const getTags = () => dispatch => {
         }))
 }
 
-export const createTag = tagData => dispatch => {
+export const createTag = (tagData, history) => dispatch => {
     axios.post('/api/tag', tagData)
-        .then(res => dispatch({
-            type: 'ADD_TAG'
-        }))
+        .then(res => history.push(`/edit-tag/id/${res.data._id}`))
         .catch(err => dispatch({
             type: GET_ERRORS,
             payload: err.response.data

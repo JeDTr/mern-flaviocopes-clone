@@ -23,7 +23,13 @@ import PrivateRoute from './components/common/PrivateRoute';
 import './App.css';
 
 // axios default config
-axios.defaults.baseURL = 'http://localhost:5000';
+if (process.env.NODE_ENV === 'production') {
+  axios.defaults.baseURL = 'https://flaviocopes-clone.herokuapp.com/';
+}
+else {
+  axios.defaults.baseURL = 'http://localhost:5000';
+}
+
 
 // check for token
 if (localStorage.getItem('jwtToken')) {

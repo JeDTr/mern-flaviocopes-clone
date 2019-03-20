@@ -18,7 +18,7 @@ class CreateTagForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault()
-        this.props.createTag(this.state);
+        this.props.createTag(this.state, this.props.history);
     }
 
     render() {
