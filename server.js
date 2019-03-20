@@ -13,10 +13,11 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 // Cors Config
-const corsOptions = {
-    origin: 'http://localhost:3000'
-}
-app.use(cors(corsOptions));
+// const corsOptions = {
+//     origin: 'http://localhost:3000'
+// }
+// app.use(cors(corsOptions));
+app.use(cors())
 
 // Passport middleware
 app.use(passport.initialize());
@@ -50,4 +51,5 @@ const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
     console.log(`Server is running n port ${port}`);
+    console.log(process.env.NODE_ENV);
 })
