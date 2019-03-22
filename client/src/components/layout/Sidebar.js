@@ -16,7 +16,7 @@ class Sidebar extends PureComponent {
                 <p><Link to='/'><span role="img" aria-label="home">🏡</span> Home</Link></p>
                 <p>Hi <span role="img" aria-label="wave">👋🏼</span> I'm Jed, a web developer.<br/>
                 I create this blog just for learning ReactJS and NodeJS.</p>
-                <p>Source: <Link to="https://flaviocopes.com/">Flaviocopes.com</Link></p>
+                <p>Source: <a href="https://flaviocopes.com/">Flaviocopes.com</a></p>
                 <p><button><span role="img" aria-label="moon">🌓</span> Light|dark mode</button></p>
                 <h4>My Recommended Courses</h4>
                 <ul>
