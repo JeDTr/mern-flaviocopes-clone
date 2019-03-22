@@ -29,6 +29,7 @@ class CreateTagForm extends Component {
                     <input 
                         type='text' 
                         name='name' 
+                        placeholder="Name"
                         className={this.props.errors.name ? 'is-invalid' : ''}
                         onChange={this.onChange}
                     />
@@ -38,6 +39,7 @@ class CreateTagForm extends Component {
                     <input 
                         type='text' 
                         name='description' 
+                        placeholder="Description"
                         className={this.props.errors.description ? 'is-invalid' : ''}
                         onChange={this.onChange}
                     />
