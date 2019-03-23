@@ -10,6 +10,11 @@ class Sidebar extends PureComponent {
         this.props.getTags();
     }
 
+    lightDarkModeToggle = () => {
+        localStorage.setItem('mode', (localStorage.getItem('mode') || 'dark') === 'dark' ? 'light' : 'dark')
+        localStorage.getItem('mode') === 'dark' ? document.querySelector('body').classList.add('dark') : document.querySelector('body').classList.remove('dark')
+    }
+
     render() {
         return (
             <aside>
@@ -17,7 +22,7 @@ class Sidebar extends PureComponent {
                 <p>Hi <span role="img" aria-label="wave">👋🏼</span> I'm Jed, a web developer.<br/>
                 I create this blog just for learning ReactJS and NodeJS.</p>
                 <p>Source: <a href="https://flaviocopes.com/">Flaviocopes.com</a></p>
-                <p><button><span role="img" aria-label="moon">🌓</span> Light|dark mode</button></p>
+                <p><button onClick={this.lightDarkModeToggle}><span role="img" aria-label="moon">🌓</span> Light|dark mode</button></p>
                 <h4>My Recommended Courses</h4>
                 <ul>
                     <li>Course 1</li>

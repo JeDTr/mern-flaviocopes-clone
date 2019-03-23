@@ -1,6 +1,10 @@
 body {
     font-family: Roboto, sans-serif;
 }
+body.dark {
+    background-color: rgb(30,34,39);
+    color: #fff;
+}
 .container {
     display: grid;
     grid-template-columns: 25% auto;
@@ -80,6 +84,7 @@ p {
 
 .bg-javascript {
     background-color: #ecdb54 !important;
+    color: #000;
 }
 
 .bg-nodejs {
