@@ -1,70 +1,59 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './Login.css';
 import { loginUser } from '../../actions/authActions';
 
-class Login extends Component {
-	constructor() {
-		super();
-		this.state = {
-			email: '',
-			password: ''
-		}
-	}
+function Login(props) {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 
-	componentDidMount() {
-		if (this.props.auth.isAuthenticated) {
-			this.props.history.push('/dashboard');
+	useEffect(() => {
+		if (props.auth.isAuthenticated) {
+			props.history.push('/dashboard');
 		}
-	}
+	})
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.auth.isAuthenticated) {
-			this.props.history.push('/dashboard');
-		}
-	}
+	// componentWillReceiveProps(nextProps) {
+	// 	if (nextProps.auth.isAuthenticated) {
+	// 		this.props.history.push('/dashboard');
+	// 	}
+	// }
 
-	onChange = (e) => {
-		this.setState({[e.target.name] : e.target.value})
-	}
-	onSubmit = (e) => {
+	const onSubmit = (e) => {
 		e.preventDefault();
 		
-		this.props.loginUser(this.state);
+		props.loginUser({email, password});
 	}
 
-	render() {
-
-		return (
-			<Fragment>
-				<h1 className="text-center">Login</h1>
-				<form onSubmit={this.onSubmit} noValidate>
-					<input 
-						type="email" 
-						name="email" 
-						placeholder="Your Email" 
-						onChange={this.onChange}
-						className={this.props.errors.email ? 'is-invalid' : ''}
-					/>
-					{ this.props.errors.email && 
-					<span className="invalid-feedback">{this.props.errors.email}</span>
-					}
-					<input 
-						type="password" 
-						name="password" 
-						placeholder="Password" 
-						autoComplete="on"
-						onChange={this.onChange}
-						className={this.props.errors.password ? 'is-invalid' : ''}
-					/>
-					{ this.props.errors.password &&
-					<span className="invalid-feedback">{this.props.errors.password}</span>
-					}
-					<input type="submit" value="Login"/>
-				</form>
-			</Fragment>
-		)
-	}
+	return (
+		<Fragment>
+			<h1 className="text-center">Login</h1>
+			<form onSubmit={onSubmit} noValidate>
+				<input 
+					type="email" 
+					name="email" 
+					placeholder="Your Email" 
+					onChange={(e) => setEmail(e.target.value)}
+					className={props.errors.email ? 'is-invalid' : ''}
+				/>
+				{ props.errors.email && 
+				<span className="invalid-feedback">{props.errors.email}</span>
+				}
+				<input 
+					type="password" 
+					name="password" 
+					placeholder="Password" 
+					autoComplete="on"
+					onChange={(e) => setPassword(e.target.value)}
+					className={props.errors.password ? 'is-invalid' : ''}
+				/>
+				{ props.errors.password &&
+				<span className="invalid-feedback">{props.errors.password}</span>
+				}
+				<input type="submit" value="Login"/>
+			</form>
+		</Fragment>
+	)
 }
 
 const mapStateToProps = (state) => ({

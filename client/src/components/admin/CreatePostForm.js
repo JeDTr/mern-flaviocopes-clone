@@ -1,88 +1,77 @@
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getTags } from '../../actions/tagActions';
 import { createPost } from '../../actions/postActions';
 
 import './CreatePostForm.css';
 
-class CreatePostForm extends PureComponent {
+function CreatePostForm(props) {
 
-    componentDidMount() {
-        this.props.getTags();
-    }
+    const [title, setTitle] = useState('');
+    const [subtitle, setSubtitle] = useState('');
+    const [content, setContent] = useState('');
+    const [tag, setTag] = useState('');
 
-    constructor() {
-        super()
-        this.state = {
-            title: '',
-            subtitle: '',
-            content: '',
-            tag: ''
-        }
-    }
+    useEffect(() => {
+        props.getTags();
+    })
 
-    onChange = (e) => {
-        this.setState({ [e.target.name] : e.target.value })
-    }
-
-    onSubmit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
-        this.props.createPost(this.state, this.props.history);
+        props.createPost({title, subtitle, content, tag}, props.history);
     }
 
-    render() {
-        return (
-            <div>
-                <h1 className="text-center">Create Post</h1>
-                <form onSubmit={this.onSubmit} noValidate>
-                    <input 
-                        name="title"
-                        onChange={this.onChange}
-                        className={this.props.errors.title ? 'is-invalid' : ''}
-                        placeholder="Title"
-                    />
-                    { this.props.errors.title &&
-					<span className="invalid-feedback">{this.props.errors.title}</span>
-					}
-                    <input 
-                        name="subtitle"
-                        onChange={this.onChange}
-                        className={this.props.errors.subtitle ? 'is-invalid' : ''}
-                        placeholder="Subtitle"
-                    />
-                    { this.props.errors.subtitle &&
-					<span className="invalid-feedback">{this.props.errors.subtitle}</span>
-					}
-                    <textarea 
-                        name="content"
-                        onChange={this.onChange}
-                        className={this.props.errors.content ? 'is-invalid' : ''}
-                        placeholder="Content"
-                    />
-                    { this.props.errors.content &&
-					<span className="invalid-feedback">{this.props.errors.content}</span>
-					}
-                    <select 
-                        name="tag"
-                        onChange={this.onChange}
-                        className={this.props.errors.tag ? 'is-invalid' : ''}
-                    >
-                        <option value="">--Select Tag--</option>
-                        {this.props.tags.data && this.props.tags.data.map(tag => (
-                            <option value={tag._id} key={tag._id}>{tag.name}</option>
-                        ))}
-                    </select>
-                    { this.props.errors.tag &&
-					<span className="invalid-feedback">{this.props.errors.tag}</span>
-					}
-                    <input 
-                        type="submit"
-                        value="Publish"
-                    />
-                </form>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <h1 className="text-center">Create Post</h1>
+            <form onSubmit={onSubmit} noValidate>
+                <input 
+                    name="title"
+                    onChange={(e) => setTitle(e.target.value)}
+                    className={props.errors.title ? 'is-invalid' : ''}
+                    placeholder="Title"
+                />
+                { props.errors.title &&
+                <span className="invalid-feedback">{props.errors.title}</span>
+                }
+                <input 
+                    name="subtitle"
+                    onChange={(e) => setSubtitle(e.target.value)}
+                    className={props.errors.subtitle ? 'is-invalid' : ''}
+                    placeholder="Subtitle"
+                />
+                { props.errors.subtitle &&
+                <span className="invalid-feedback">{props.errors.subtitle}</span>
+                }
+                <textarea 
+                    name="content"
+                    onChange={(e) => setContent(e.target.value)}
+                    className={props.errors.content ? 'is-invalid' : ''}
+                    placeholder="Content"
+                />
+                { props.errors.content &&
+                <span className="invalid-feedback">{props.errors.content}</span>
+                }
+                <select 
+                    name="tag"
+                    onChange={(e) => setTag(e.target.value)}
+                    className={props.errors.tag ? 'is-invalid' : ''}
+                >
+                    <option value="">--Select Tag--</option>
+                    {props.tags.data && props.tags.data.map(data => (
+                        <option value={data._id} key={data._id}>{data.name}</option>
+                    ))}
+                </select>
+                { props.errors.tag &&
+                <span className="invalid-feedback">{props.errors.tag}</span>
+                }
+                <input 
+                    type="submit"
+                    value="Publish"
+                />
+            </form>
+        </div>
+    )
 }
 
 const mapStateToProps = state => ({
