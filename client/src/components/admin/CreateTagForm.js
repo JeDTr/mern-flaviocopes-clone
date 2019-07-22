@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 
 import { createTag } from '../../actions/tagActions';
 
-function CreateTagForm(props) {
+function CreateTagForm({history, errors, createTag}) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
     const onSubmit = (e) => {
         e.preventDefault()
-        props.createTag({name, description}, props.history);
+        createTag({name, description}, history);
     }
 
     return (
@@ -20,21 +20,21 @@ function CreateTagForm(props) {
                     type='text' 
                     name='name' 
                     placeholder="Name"
-                    className={props.errors.name ? 'is-invalid' : ''}
+                    className={errors.name ? 'is-invalid' : ''}
                     onChange={(e) => setName(e.target.value)}
                 />
-                { props.errors.name &&
-                <span className="invalid-feedback">{props.errors.name}</span>
+                { errors.name &&
+                <span className="invalid-feedback">{errors.name}</span>
                 }
                 <input 
                     type='text' 
                     name='description' 
                     placeholder="Description"
-                    className={props.errors.description ? 'is-invalid' : ''}
+                    className={errors.description ? 'is-invalid' : ''}
                     onChange={(e) => setDescription(e.target.value)}
                 />
-                { props.errors.description &&
-                <span className="invalid-feedback">{props.errors.description}</span>
+                { errors.description &&
+                <span className="invalid-feedback">{errors.description}</span>
                 }
                 <input 
                     type='submit' 

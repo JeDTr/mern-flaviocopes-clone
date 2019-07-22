@@ -30,7 +30,9 @@ module.exports.getPostById = (req, res) => {
 module.exports.getPostByCuid = (req, res) => {
     Post.findOne({cuid: req.params.cuid})
         .populate('tag', ['name'])
-        .then(post => res.json(post))
+        .then(post => {
+            post ? res.json(post) : res.status(404).json({post: 'No posts found'})
+        })
         .catch(err => res.status(404).json({post: 'No posts found'}))
 }
 

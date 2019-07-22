@@ -14,7 +14,7 @@ function CreatePostForm(props) {
 
     useEffect(() => {
         props.getTags();
-    })
+    }, [])
 
     const onSubmit = (e) => {
         e.preventDefault();

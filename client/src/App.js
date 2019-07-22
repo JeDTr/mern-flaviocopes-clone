@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import {setCurrentUser, logoutUser} from './actions/authActions';
+import { SET_CURRENT_USER, USER_LOGOUT } from './actions/types';
 
 import store from './store';
 
@@ -36,12 +36,14 @@ if (localStorage.getItem('jwtToken')) {
   const token = localStorage.getItem('jwtToken');
   axios.defaults.headers.common['Authorization'] = token;
   const decoded = jwt_decode(token);
-  store.dispatch(setCurrentUser(decoded))
-  // console.log(decoded);
-
+  store.dispatch({
+    type: SET_CURRENT_USER,
+    payload: decoded
+  })
   if (decoded.exp < Date.now() / 1000) {
-    store.dispatch(logoutUser())
-    window.location.href = '/';
+    store.dispatch({
+      type: USER_LOGOUT
+    })
   }
 }
 

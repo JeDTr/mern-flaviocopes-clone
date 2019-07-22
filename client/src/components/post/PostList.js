@@ -8,10 +8,10 @@ import Sidebar from '../layout/Sidebar';
 
 import './PostList.css';
 
-function PostList(props) {
+function PostList({posts, getPosts}) {
 
     useEffect(() => {
-        props.getPosts();
+        getPosts();
     }, [])
 
     return (
@@ -19,7 +19,7 @@ function PostList(props) {
             <Sidebar />
             <article className="post-container">
                 <ul className="post-list">
-                    {props.posts.data && props.posts.data.map(post => (
+                    {posts.data && posts.data.map(post => (
                         <li key={post.cuid} className="post-item">
                             <Link to={`/post/${post.slug}-${post.cuid}`}>
                                 <h3 className="title">{post.title}</h3>

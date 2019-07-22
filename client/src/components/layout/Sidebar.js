@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import { getTags } from '../../actions/tagActions';
 
-function Sidebar(props) {
+function Sidebar({tags, getTags}) {
 
     useEffect(() => {
-        props.getTags();
+        getTags();
     }, [])
 
     const lightDarkModeToggle = () => {
@@ -29,9 +29,9 @@ function Sidebar(props) {
                 <li>Course 3</li>
                 <li>Course 4</li>
             </ul>
-            {props.tags.data && (
+            {tags.data && (
                 <div className="tags-cloud">
-                    {props.tags.data.map(tag => 
+                    {tags.data.map(tag => 
                         <Link key={tag._id} to={`/tag/${tag.slug}`} className={`bg-${tag.slug}`}>{tag.name}</Link>    
                     )}
                 </div>

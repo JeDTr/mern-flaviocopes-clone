@@ -1,21 +1,19 @@
+import produce from 'immer'
 import { SET_CURRENT_USER } from '../actions/types';
 import isEmpty from '../util/isEmpty';
 
 const initialState = {
     isAuthenticated: false,
-    user: {}
 }
 
-export default function(state = initialState, action) {
-    switch (action.type) {
-        case SET_CURRENT_USER:
-            return {
-                ...state,
-                isAuthenticated: !isEmpty(action.payload),
-                user: action.payload
-            }
-        default: 
-            return state;
-    }
-}
-
+export default (state = initialState, action) =>
+    produce(state, draft => {
+        switch (action.type) {
+            case SET_CURRENT_USER:
+                draft.isAuthenticated = !isEmpty(action.payload)
+                draft.user = action.payload
+                break
+            default:
+                break
+        }
+    })

@@ -6,23 +6,23 @@ import { getPost } from '../../actions/postActions';
 
 import Sidebar from '../layout/Sidebar';
 
-function PostPage (props) {
+function PostPage ({match, posts, getPost}) {
     
     useEffect(() => {
-        const postCuid = props.match.params.slugcuid.split('-').pop();
-        props.getPost(postCuid);
+        const postCuid = match.params.slugcuid.split('-').pop();
+        getPost(postCuid);
     }, [])
 
     return (
-        <div class="container">
+        <div className="container">
             <Sidebar />
-            {props.posts.post && (
+            {posts.post && (
                 <article className="post-container">
-                    <h1>{props.posts.post.title}</h1>
-                    <p>{props.posts.post.subtitle}</p>
-                    <p className="single-post-date">Published <Moment format="MMM DD YYYY">{props.posts.post.dateAdded}</Moment></p>
+                    <h1>{posts.post.title}</h1>
+                    <p>{posts.post.subtitle}</p>
+                    <p className="single-post-date">Published <Moment format="MMM DD YYYY">{posts.post.dateAdded}</Moment></p>
                     <div className="single-post-content">
-                        {parse(props.posts.post.content)}
+                        {parse(posts.post.content)}
                     </div>
                 </article>
             )}

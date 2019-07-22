@@ -3,26 +3,26 @@ import { connect } from 'react-redux';
 import './Login.css';
 import { loginUser } from '../../actions/authActions';
 
-function Login(props) {
+function Login({auth, history, errors, loginUser}) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
 	useEffect(() => {
-		if (props.auth.isAuthenticated) {
-			props.history.push('/dashboard');
+		if (auth.isAuthenticated) {
+			history.push('/dashboard');
 		}
 	})
 
 	// componentWillReceiveProps(nextProps) {
-	// 	if (nextProps.auth.isAuthenticated) {
-	// 		this.props.history.push('/dashboard');
+	// 	if (nextauth.isAuthenticated) {
+	// 		this.history.push('/dashboard');
 	// 	}
 	// }
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		
-		props.loginUser({email, password});
+		loginUser({email, password});
 	}
 
 	return (
@@ -34,10 +34,10 @@ function Login(props) {
 					name="email" 
 					placeholder="Your Email" 
 					onChange={(e) => setEmail(e.target.value)}
-					className={props.errors.email ? 'is-invalid' : ''}
+					className={errors.email ? 'is-invalid' : ''}
 				/>
-				{ props.errors.email && 
-				<span className="invalid-feedback">{props.errors.email}</span>
+				{ errors.email && 
+				<span className="invalid-feedback">{errors.email}</span>
 				}
 				<input 
 					type="password" 
@@ -45,10 +45,10 @@ function Login(props) {
 					placeholder="Password" 
 					autoComplete="on"
 					onChange={(e) => setPassword(e.target.value)}
-					className={props.errors.password ? 'is-invalid' : ''}
+					className={errors.password ? 'is-invalid' : ''}
 				/>
-				{ props.errors.password &&
-				<span className="invalid-feedback">{props.errors.password}</span>
+				{ errors.password &&
+				<span className="invalid-feedback">{errors.password}</span>
 				}
 				<input type="submit" value="Login"/>
 			</form>

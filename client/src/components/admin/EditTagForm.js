@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { loadTagData, editTag } from '../../actions/tagActions';
+import { getTag, editTag } from '../../actions/tagActions';
 
-function EditTagForm(props) {
+function EditTagForm({match, tags, errors, getTag}) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
     useEffect(() => {
-        props.loadTagData(props.match.params.id);
+        getTag(match.params.id);
     }, [])
 
     useEffect(() => {
-        if (props.tags.tag) {
-            const { name, description } = props.tags.tag;
+        if (tags.tag) {
+            const { name, description } = tags.tag;
             setName(name);
             setDescription(description);
         }
-    }, props.tags.tag)
+    }, tags.tag)
 
     const onSubmit = (e) => {
         e.preventDefault();
-        props.editTag(props.match.params.id, {name, description});
+        editTag(match.params.id, {name, description});
     }
 
-    if (!props.tags.tag) {
+    if (tags.loading) {
+        return (
+            <h1>Loading...</h1>
+        )
+    }
+    else if (!tags.tag) {
         return (
             <h1>No Tag Found</h1>
         )
@@ -39,11 +44,11 @@ function EditTagForm(props) {
                     name='name' 
                     id='name'
                     value={name}
-                    className={props.errors.name ? 'is-invalid' : ''}
+                    className={errors.name ? 'is-invalid' : ''}
                     onChange={(e) => setName(e.target.value)}
                 />
-                { props.errors.name &&
-                <span className="invalid-feedback">{props.errors.name}</span>
+                { errors.name &&
+                <span className="invalid-feedback">{errors.name}</span>
                 }
                 <label htmlFor='description'>Description</label>
                 <input 
@@ -51,11 +56,11 @@ function EditTagForm(props) {
                     name='description' 
                     id='description'
                     value={description}
-                    className={props.errors.description ? 'is-invalid' : ''}
+                    className={errors.description ? 'is-invalid' : ''}
                     onChange={(e) => setDescription(e.target.value)}
                 />
-                { props.errors.description &&
-                <span className="invalid-feedback">{props.errors.description}</span>
+                { errors.description &&
+                <span className="invalid-feedback">{errors.description}</span>
                 }
                 <input 
                     type='submit' 
@@ -71,4 +76,4 @@ const mapStateToProps = (state) => ({
     tags: state.tags
 })
 
-export default connect(mapStateToProps, { editTag, loadTagData })(EditTagForm);
+export default connect(mapStateToProps, { editTag, getTag })(EditTagForm);
