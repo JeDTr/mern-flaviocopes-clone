@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
@@ -8,37 +8,35 @@ import Sidebar from '../layout/Sidebar';
 
 import './PostList.css';
 
-class PostList extends PureComponent {
+function PostList({posts, getPosts}) {
 
-    componentDidMount() {
-        this.props.getPosts();
-    }
+    useEffect(() => {
+        getPosts();
+    }, [])
 
-    render () {
-        return (
-            <div className="container">
-                <Sidebar />
-                <article className="post-container">
-                    <ul className="post-list">
-                        {this.props.posts.data && this.props.posts.data.map(post => (
-                            <li key={post.cuid} className="post-item">
-                                <Link to={`/post/${post.slug}-${post.cuid}`}>
-                                    <h3 className="title">{post.title}</h3>
-                                    <p className="subtitle">{post.subtitle}</p>
-                                </Link>
-                                <div className="date-tag">
-                                    <Moment format="MMM DD YYYY">{post.dateAdded}</Moment>
-                                    <div className="tag">
-                                        <Link className={`button-tag bg-${post.tag.slug}`} to={`/tag/${post.tag.slug}`}>{post.tag.name}</Link>
-                                    </div>
+    return (
+        <div className="container">
+            <Sidebar />
+            <article className="post-container">
+                <ul className="post-list">
+                    {posts.data && posts.data.map(post => (
+                        <li key={post.cuid} className="post-item">
+                            <Link to={`/post/${post.slug}-${post.cuid}`}>
+                                <h3 className="title">{post.title}</h3>
+                                <p className="subtitle">{post.subtitle}</p>
+                            </Link>
+                            <div className="date-tag">
+                                <Moment format="MMM DD YYYY">{post.dateAdded}</Moment>
+                                <div className="tag">
+                                    <Link className={`button-tag bg-${post.tag.slug}`} to={`/tag/${post.tag.slug}`}>{post.tag.name}</Link>
                                 </div>
-                            </li>
-                        ))}
-                    </ul>
-                </article>
-            </div>
-        )
-    }
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </article>
+        </div>
+    )
 }
 
 const mapStateToProps = state => ({
