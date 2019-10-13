@@ -1,98 +1,103 @@
 body {
-    font-family: Roboto, sans-serif;
+  font-family: Roboto, sans-serif;
 }
 body.dark {
-    background-color: rgb(30,34,39);
-    color: #fff;
+  background-color: rgb(30, 34, 39);
+  color: #fff;
 }
 .container {
-    display: grid;
-    grid-template-columns: 25% auto;
-    grid-column-gap: 45px;
-    grid-template-areas: "sidebar main";
-    max-width: 1200px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-top: 50px !important;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: 25% auto;
+  grid-column-gap: 45px;
+  grid-template-areas: 'sidebar main';
+  max-width: 1200px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 50px !important;
+  margin: 0 auto;
 }
 aside {
-    grid-area: sidebar;
+  grid-area: sidebar;
 }
 .post-container {
-    grid-area: main;
+  grid-area: main;
 }
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 a {
-    text-decoration: none;
-    color: currentColor;
+  text-decoration: none;
+  color: currentColor;
 }
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 900;
-    margin-top: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 900;
+  margin-top: 0;
 }
 h1 {
-    font-size: 3em;
+  font-size: 3em;
 }
 h2 {
-    font-size: 2.5em;
+  font-size: 2.5em;
 }
 h3 {
-    font-size: 2em;
+  font-size: 2em;
 }
 p {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .tags-cloud a {
-    padding: 8px;
-    background-color: #7fffd4;
-    margin-left: 0px;
-    display: inline-block;
-    margin-right: 5px;
-    margin-top: 15px;
-    border-radius: 3px;
-    font-weight: 700;
-    font-size: 14px;
+  padding: 8px;
+  background-color: #7fffd4;
+  margin-left: 0px;
+  display: inline-block;
+  margin-right: 5px;
+  margin-top: 15px;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 14px;
 }
 .bg-express {
-    background-color: #b565a7 !important;
-    color: #fff;
+  background-color: #b565a7 !important;
+  color: #fff;
 }
 
 .bg-vuejs {
-    background-color: #00a591 !important;
-    color: #fff;
+  background-color: #00a591 !important;
+  color: #fff;
 }
 
 .bg-devtools {
-    background-color: #ce3175 !important;
-    color: #fff;
+  background-color: #ce3175 !important;
+  color: #fff;
 }
 
 .bg-css {
-    background-color: #bc70a4 !important;
-    color: #fff;
+  background-color: #bc70a4 !important;
+  color: #fff;
 }
 
 .bg-git {
-    background-color: #dd4132 !important;
-    color: #fff;
+  background-color: #dd4132 !important;
+  color: #fff;
 }
 
 .bg-javascript {
-    background-color: #ecdb54 !important;
-    color: #000;
+  background-color: #ecdb54 !important;
+  color: #000;
 }
 
 .bg-nodejs {
-    background-color: #5b5ea6 !important;
-    color: #fff;
+  background-color: #5b5ea6 !important;
+  color: #fff;
 }
 
 .bg-react {
-    background-color: #282c34 !important;
-    color: #61dafb;
+  background-color: #282c34 !important;
+  color: #61dafb;
 }
