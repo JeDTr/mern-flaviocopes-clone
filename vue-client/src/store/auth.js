@@ -1,6 +1,6 @@
-import axios from 'axios';
-import jwt_decode from 'jwt-decode';
 import _isEmpty from 'lodash-es/isEmpty';
+
+import service from '@/service';
 
 export default {
   namespaced: true,
@@ -27,30 +27,27 @@ export default {
   actions: {
     async login({ commit }, data) {
       try {
-        const { data: { token } } = await axios.post('/user/login', data)
-        axios.defaults.headers.common['Authorization'] = token;
-        localStorage.setItem('jwtToken', token);
-        const user = jwt_decode(token);
-        commit('SET_CURRENT_USER', user);
+        const { token } = await service.post('/user/login', data)
 
+        service.setHeaderToken(token);
+        service.saveToken(token);
+        const user = service.getUserData(token);
+
+        commit('SET_CURRENT_USER', user);
       } catch (error) {
-        commit('SET_ERRORS', error.response.data)
+        commit('SET_ERRORS', error)
       }
     },
     init() {
-      // axios
-      axios.defaults.baseURL = "http://localhost:5000/api"
-
       // update user data from web storage
-      const token = localStorage.getItem('jwtToken');
-      const user = jwt_decode(token);
+      const user = service.getUserData();
 
-      if (user.exp > Date.now() / 1000) {
-        axios.defaults.headers.common['Authorization'] = token;
+      if (!service.isTokenExpired) {
+        service.setHeaderToken();
         this.commit('SET_CURRENT_USER', user)
       }
       else {
-        localStorage.removeItem('jwtToken')
+        service.clearToken();
       }
     },
   }

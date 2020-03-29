@@ -1,4 +1,4 @@
-import axios from 'axios';
+import service from '@/service';
 
 export default {
   namespaced: true,
@@ -24,10 +24,10 @@ export default {
   actions: {
     async getTags({ commit }) {
       try {
-        const { data: tags } = await axios.get('/tag/all')
+        const tags = await service.get('/tag/all')
         commit('GET_TAGS_SUCCESS', tags)
       } catch (error) {
-        commit('GET_TAGS_FAILURE', error.response.data)
+        commit('GET_TAGS_FAILURE', error)
       }
     }
   },

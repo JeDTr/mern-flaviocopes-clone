@@ -1,5 +1,6 @@
-import axios from 'axios';
 import _isEmpty from 'lodash-es/isEmpty';
+
+import service from '@/service';
 
 export default {
   namespaced: true,
@@ -36,18 +37,18 @@ export default {
   actions: {
     async getPosts({ commit }, tagSlug) {
       try {
-        const { data: posts } = await axios.get(tagSlug ? `/post/tag/slug/${tagSlug}` : '/post/all')
+        const posts = await service.get(tagSlug ? `/post/tag/slug/${tagSlug}` : '/post/all')
         commit('GET_POSTS_SUCCESS', posts)
       } catch (error) {
-        commit('GET_POSTS_FAILURE', error.response.data)
+        commit('GET_POSTS_FAILURE', error)
       }
     },
     async getPost({ commit }, cuid) {
       try {
-        const { data: post } = await axios.get(`/post/cuid/${cuid}`)
+        const post = await service.get(`/post/cuid/${cuid}`)
         commit('GET_POST_SUCCESS', post)
       } catch (error) {
-        commit('GET_POST_FAILURE', error.response.data)
+        commit('GET_POST_FAILURE', error)
       }
     },
   }
